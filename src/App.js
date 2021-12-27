@@ -3,6 +3,7 @@ import CurrentPrice from './components/CurrentPrice';
 import Prices from './components/Prices';
 import TodaysPrices from './components/TodaysPrices';
 import TomorrowsPrices from './components/TomorrowsPrices';
+import GetToken from './components/GetToken';
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
 	const [todaysPrices, setTodaysPrices] = useState(null);
 	const [tomorrowsPrices, setTomorrowsPrices] = useState(null);
 	const [separate, setSeparate] = useState(false);
+	const [token, setToken] = useState(null);
 
 	const doSeparation = () => {
 		if (separate) {
@@ -50,33 +52,64 @@ function App() {
 
 	function handleData(data) {
 		console.log(data);
-		setTodaysPrices(
-			data['viewer']['homes'][0]['currentSubscription']['priceInfo']['today']
-		);
-		setTomorrowsPrices(
-			data['viewer']['homes'][0]['currentSubscription']['priceInfo']['tomorrow']
-		);
-		setCurrentPrice(
-			data['viewer']['homes'][0]['currentSubscription']['priceInfo']['current']
-		);
+		if (data) {
+			setTodaysPrices(
+				data['viewer']['homes'][0]['currentSubscription']['priceInfo']['today']
+			);
+			setTomorrowsPrices(
+				data['viewer']['homes'][0]['currentSubscription']['priceInfo'][
+					'tomorrow'
+				]
+			);
+			setCurrentPrice(
+				data['viewer']['homes'][0]['currentSubscription']['priceInfo'][
+					'current'
+				]
+			);
+		}
 	}
 
 	async function getPrices() {
-		console.log('Submitting');
-		let response = fetch('https://api.tibber.com/v1-beta/gql', {
-			method: 'POST',
-			headers: {
-				Authorization: 'Bearer ' + process.env.REACT_APP_TOKEN,
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify({ query }),
-		});
-		response.then((res) => res.json()).then((data) => handleData(data['data']));
+		if (token) {
+			try {
+				console.log('Submitting');
+				let response = fetch('https://api.tibber.com/v1-beta/gql', {
+					method: 'POST',
+					headers: {
+						Authorization: 'Bearer ' + token,
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ query }),
+				});
+				response
+					.then((res) => res.json())
+					.then((data) => handleData(data['data']));
+			} catch (error) {
+				console.log(error);
+			}
+		}
 	}
+
+	const clearToken = () => {
+		setToken(null);
+		document.cookie = 'Token=';
+	};
+
+	useEffect(() => {
+		if (document.cookie) {
+			const cookieValue = document.cookie
+				.split('; ')
+				.find((row) => row.startsWith('Token'))
+				.split('=')[1];
+			if (cookieValue) {
+				setToken(cookieValue);
+			}
+		}
+	}, []);
 
 	useEffect(() => {
 		getPrices();
-	}, []);
+	}, [token]);
 
 	useEffect(() => {
 		console.log(currentPrice);
@@ -86,22 +119,34 @@ function App() {
 
 	return (
 		<div className='App'>
-			{currentPrice && <CurrentPrice currentPrice={currentPrice} />}
-			{todaysPrices && tomorrowsPrices && !separate && (
+			{!token && <GetToken setToken={setToken} />}
+			{token && currentPrice && <CurrentPrice currentPrice={currentPrice} />}
+			{token && todaysPrices && tomorrowsPrices && !separate && (
 				<Prices todaysPrices={todaysPrices} tomorrowsPrices={tomorrowsPrices} />
 			)}
-			{todaysPrices && separate && <TodaysPrices todaysPrices={todaysPrices} />}
-			{tomorrowsPrices && separate && (
+			{token && todaysPrices && separate && (
+				<TodaysPrices todaysPrices={todaysPrices} />
+			)}
+			{token && tomorrowsPrices && separate && (
 				<TomorrowsPrices tomorrowsPrices={tomorrowsPrices} />
 			)}
-			<button
-				className={'separationButton'}
-				onClick={() => {
-					doSeparation();
-				}}
-			>
-				{separate ? 'Join' : 'Separate'}
-			</button>
+
+			{token && tomorrowsPrices && tomorrowsPrices.length > 0 && (
+				<button
+					className={'separationButton'}
+					onClick={() => {
+						doSeparation();
+					}}
+				>
+					{separate ? 'Join' : 'Separate'}
+				</button>
+			)}
+
+			{token && (
+				<button className={'separationButton'} onClick={() => clearToken()}>
+					Clear token
+				</button>
+			)}
 		</div>
 	);
 }
