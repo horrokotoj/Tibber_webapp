@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/Tibber_webapp/static/css/main.cec8c05e.chunk.css",
-    "main.js": "/Tibber_webapp/static/js/main.d1ae7a7e.chunk.js",
-    "main.js.map": "/Tibber_webapp/static/js/main.d1ae7a7e.chunk.js.map",
+    "main.css": "/Tibber_webapp/static/css/main.689df879.chunk.css",
+    "main.js": "/Tibber_webapp/static/js/main.a4b256f2.chunk.js",
+    "main.js.map": "/Tibber_webapp/static/js/main.a4b256f2.chunk.js.map",
     "runtime-main.js": "/Tibber_webapp/static/js/runtime-main.7f6a1b7a.js",
     "runtime-main.js.map": "/Tibber_webapp/static/js/runtime-main.7f6a1b7a.js.map",
     "static/js/2.26102765.chunk.js": "/Tibber_webapp/static/js/2.26102765.chunk.js",
     "static/js/2.26102765.chunk.js.map": "/Tibber_webapp/static/js/2.26102765.chunk.js.map",
     "index.html": "/Tibber_webapp/index.html",
-    "static/css/main.cec8c05e.chunk.css.map": "/Tibber_webapp/static/css/main.cec8c05e.chunk.css.map",
+    "static/css/main.689df879.chunk.css.map": "/Tibber_webapp/static/css/main.689df879.chunk.css.map",
     "static/js/2.26102765.chunk.js.LICENSE.txt": "/Tibber_webapp/static/js/2.26102765.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.7f6a1b7a.js",
     "static/js/2.26102765.chunk.js",
-    "static/css/main.cec8c05e.chunk.css",
-    "static/js/main.d1ae7a7e.chunk.js"
+    "static/css/main.689df879.chunk.css",
+    "static/js/main.a4b256f2.chunk.js"
   ]
 }
