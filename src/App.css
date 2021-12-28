@@ -9,15 +9,19 @@
 	color: white;
 }
 
-.separationButton {
+.appButton {
 	height: 50px;
 	width: 150px;
 	margin: 10px;
-	background-color: blueviolet;
+	background-color: darkviolet;
 	color: black;
 	border-color: black;
 	border-width: 1px;
 	border-radius: 15px;
+}
+
+.appButton:hover {
+	background-color: blueviolet;
 }
 
 .chartContainer {

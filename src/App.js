@@ -133,7 +133,7 @@ function App() {
 
 			{token && tomorrowsPrices && tomorrowsPrices.length > 0 && (
 				<button
-					className={'separationButton'}
+					className={'appButton'}
 					onClick={() => {
 						doSeparation();
 					}}
@@ -143,7 +143,7 @@ function App() {
 			)}
 
 			{token && (
-				<button className={'separationButton'} onClick={() => clearToken()}>
+				<button className={'appButton'} onClick={() => clearToken()}>
 					Clear token
 				</button>
 			)}
