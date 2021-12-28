@@ -23,7 +23,7 @@ const GetToken = ({ setToken }) => {
 			<button
 				type='submit'
 				value='save token'
-				className='separationButton'
+				className='appButton'
 				onClick={() => saveToken()}
 			>
 				Save token
