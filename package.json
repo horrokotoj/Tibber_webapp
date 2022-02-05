@@ -1,6 +1,6 @@
 {
 	"name": "tibber-webapp",
-	"homepage": "https://horrokotoj.github.io/Tibber_webapp",
+	"homepage": "https://tibber.horrokotoj.com",
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
